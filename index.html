@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Nani</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fbcfe8 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Contenedor del tulipán principal (el botón de inicio) */
+        .tulip-click-me {
+            width: 150px;
+            height: 200px;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+        }
+
+        .tulip-click-me:hover {
+            transform: scale(1.15);
+        }
+
+        /* Texto que invita a presionar */
+        .instruccion {
+            color: #1e3a8a;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 15px;
+            animation: pulse 1.5s infinite;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+            transition: opacity 0.5s ease;
+        }
+
+        /* La tarjeta romántica (oculta al inicio) */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: absolute;
+            z-index: 5;
+            
+            /* Estado inicial: oculta y pequeña */
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Clase que activa la tarjeta con JavaScript */
+        .card.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* Mini tulipán decorativo dentro de la carta */
+        .mini-tulip {
+            width: 80px;
+            height: 100px;
+            margin: 0 auto 15px auto;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #4b5563;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .heart {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Partículas de corazones */
+        .corazon-flotante {
+            position: absolute;
+            color: #60a5fa;
+            font-size: 24px;
+            pointer-events: none;
+            animation: lanzarCorazon 1.2s ease-out forwards;
+            z-index: 100;
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes lanzarCorazon {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) scale(0.3) rotate(var(--r));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tulip-click-me" id="btn-tulip">
+        <svg viewBox="0 0 100 150" width="100%" height="100%">
+            <path d="M50,80 Q45,110 50,140" fill="none" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+            <path d="M50,110 Q30,100 35,85 Q45,95 50,110" fill="#4caf50"/>
+            <path d="M50,120 Q70,115 65,95 Q58,105 50,120" fill="#4caf50"/>
+            <path d="M50,85 C30,80 30,40 45,30 C35,50 45,75 50,85 Z" fill="#1e40af"/>
+            <path d="M50,85 C70,80 70,40 55,30 C65,50 55,75 50,85 Z" fill="#1e40af"/>
+            <path d="M50,85 C35,75 40,35 50,25 C60,35 65,75 50,85 Z" fill="#3b82f6"/>
+        </svg>
+    </div>
+    <div class="instruccion" id="texto-instruccion">Toca el tulipán, Nani!</div>
+
+    <div class="card" id="carta-amor">
+        <div class="mini-tulip">
+            <svg viewBox="0 0 100 150" width="100%" height="100%">
+                <path d="M50,80 Q45,110 50,140" fill="none" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+                <path d="M50,85 C30,80 30,40 45,30 C35,50 45,75 50,85 Z" fill="#1e40af"/>
+                <path d="M50,85 C70,80 70,40 55,30 C65,50 55,75 50,85 Z" fill="#1e40af"/>
+                <path d="M50,85 C35,75 40,35 50,25 C60,35 65,75 50,85 Z" fill="#3b82f6"/>
+            </svg>
+        </div>
+        <h1>¡Te amo, Nani!</h1>
+        <p>
+            Así como los tulipanes azules son únicos, extraordinarios y difíciles de encontrar, 
+            así de especial eres tú en mi vida. <br><br>
+            Gracias por ser mi felicidad, mi apoyo constante y mi lugar seguro.
+        </p>
+        <div class="heart">💙</div>
+    </div>
+
+    <script>
+        const btnTulip = document.getElementById('btn-tulip');
+        const textoInstruccion = document.getElementById('texto-instruccion');
+        const cartaAmor = document.getElementById('carta-amor');
+
+        function abrirCarta(e) {
+            // Evita doble evento en móviles
+            if (e.type === 'touchstart') e.preventDefault();
+
+            // 1. Desvanecer y quitar el tulipán de inicio y su texto
+            btnTulip.style.transition = 'all 0.5s ease';
+            btnTulip.style.opacity = '0';
+            btnTulip.style.transform = 'scale(0)';
+            textoInstruccion.style.opacity = '0';
+
+            setTimeout(() => {
+                btnTulip.style.display = 'none';
+                textoInstruccion.style.display = 'none';
+                
+                // 2. Mostrar la carta de amor con animación poética
+                cartaAmor.classList.add('active');
+                
+                // 3. Lanzar la lluvia de corazones desde el fondo
+                lanzarExplosionCorazones();
+            }, 500);
+        }
+
+        function lanzarExplosionCorazones() {
+            // Crea 15 corazones volando en todas direcciones
+            for (let i = 0; i < 15; i++) {
+                const corazon = document.createElement('div');
+                corazon.classList.add('corazon-flotante');
+                corazon.innerHTML = '💙';
+                
+                // Posición inicial en el centro de la pantalla
+                corazon.style.left = '50%';
+                corazon.style.top = '50%';
+                
+                // Valores aleatorios calculados correctamente (sin espacios)
+                const xAleatoria = (Math.random() - 0.5) * 300;
+                const yAleatoria = (Math.random() - 0.5) * 300 - 100;
+                const rotacionAleatoria = Math.random() * 360;
+                
+                corazon.style.setProperty('--x', `${xAleatoria}px`);
+                corazon.style.setProperty('--y', `${yAleatoria}px`);
+                corazon.style.setProperty('--r', `${rotacionAleatoria}deg`);
+                
+                document.body.appendChild(corazon);
+                
+                setTimeout(() => {
+                    corazon.remove();
+                }, 1200);
+            }
+        }
+
+        // Eventos para PC y Móviles
+        btnTulip.addEventListener('click', abrirCarta);
+        btnTulip.addEventListener('touchstart', abrirCarta);
+    </script>
+
+</body>
+</html>
