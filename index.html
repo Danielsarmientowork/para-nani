@@ -1,226 +1,295 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi Nani</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #e0f2fe 0%, #fbcfe8 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No pienso rendirme</title>
+<style>
 
-        /* Contenedor del tulipán principal (el botón de inicio) */
-        .tulip-click-me {
-            width: 150px;
-            height: 200px;
-            cursor: pointer;
-            animation: float 3s ease-in-out infinite;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-        }
+  /* ===========================================================
+     PARA EDITAR: busca los comentarios "EDITA AQUÍ" más abajo
+     para poner nombres, ciudades, km, fecha y tu firma.
+     =========================================================== */
 
-        .tulip-click-me:hover {
-            transform: scale(1.15);
-        }
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-        /* Texto que invita a presionar */
-        .instruccion {
-            color: #1e3a8a;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 15px;
-            animation: pulse 1.5s infinite;
-            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
-            transition: opacity 0.5s ease;
-        }
+  :root{
+    --paper: #F2EFE9;
+    --ink: #221F1A;
+    --ink-soft: #4A453D;
+    --accent: #9C4A2E;
+    --line: #D8D2C4;
+    --mono-dim: #6B7268;
+  }
 
-        /* La tarjeta romántica (oculta al inicio) */
-        .card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            position: absolute;
-            z-index: 5;
-            
-            /* Estado inicial: oculta y pequeña */
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+  *{ box-sizing: border-box; }
 
-        /* Clase que activa la tarjeta con JavaScript */
-        .card.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+  }
 
-        /* Mini tulipán decorativo dentro de la carta */
-        .mini-tulip {
-            width: 80px;
-            height: 100px;
-            margin: 0 auto 15px auto;
-        }
+  body{
+    min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    padding: 64px 24px 96px;
+  }
 
-        h1 {
-            color: #1e3a8a;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
+  main{
+    width: 100%;
+    max-width: 560px;
+  }
 
-        p {
-            color: #4b5563;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-        }
+  #cover{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+    transition: opacity 0.5s ease;
+  }
 
-        .heart {
-            color: #3b82f6;
-            font-size: 1.5rem;
-            animation: pulse 1.5s infinite;
-        }
+  #cover .cover-label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--mono-dim);
+  }
 
-        /* Partículas de corazones */
-        .corazon-flotante {
-            position: absolute;
-            color: #60a5fa;
-            font-size: 24px;
-            pointer-events: none;
-            animation: lanzarCorazon 1.2s ease-out forwards;
-            z-index: 100;
-        }
+  #openBtn{
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    border-radius: 3px;
+    padding: 14px 34px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
 
-        /* Animaciones */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
+  #openBtn:hover{
+    background: var(--ink);
+    color: var(--paper);
+  }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
+  #openBtn:active{
+    transform: scale(0.98);
+  }
 
-        @keyframes lanzarCorazon {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) scale(0.3) rotate(var(--r));
-            }
-        }
-    </style>
+  #openBtn:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  #cover.hidden{
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  #content{
+    display:none;
+  }
+
+  #content.visible{
+    display:block;
+  }
+
+  .readout{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--mono-dim);
+    letter-spacing: 0.02em;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 16px 18px;
+    margin-bottom: 48px;
+    cursor: default;
+  }
+
+  .readout .row{
+    display:flex;
+    justify-content: space-between;
+    padding: 3px 0;
+  }
+
+  .readout .row + .row{
+    border-top: 1px dashed var(--line);
+  }
+
+  .readout .km{
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .headline{
+    font-size: clamp(26px, 5vw, 34px);
+    line-height: 1.28;
+    font-weight: 600;
+    margin: 0 0 32px;
+    max-width: 20ch;
+  }
+
+  .body-text p{
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+    max-width: 58ch;
+  }
+
+  .body-text strong{
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .divider{
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
+
+  .signoff{
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .signature{
+    margin-top: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--mono-dim);
+  }
+
+  .fade-in{
+    opacity: 0;
+    transform: translateY(6px);
+    animation: rise 0.7s ease forwards;
+  }
+
+  @keyframes rise{
+    to{ opacity:1; transform:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{ animation:none; opacity:1; transform:none; }
+  }
+
+</style>
 </head>
 <body>
 
-    <div class="tulip-click-me" id="btn-tulip">
-        <svg viewBox="0 0 100 150" width="100%" height="100%">
-            <path d="M50,80 Q45,110 50,140" fill="none" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
-            <path d="M50,110 Q30,100 35,85 Q45,95 50,110" fill="#4caf50"/>
-            <path d="M50,120 Q70,115 65,95 Q58,105 50,120" fill="#4caf50"/>
-            <path d="M50,85 C30,80 30,40 45,30 C35,50 45,75 50,85 Z" fill="#1e40af"/>
-            <path d="M50,85 C70,80 70,40 55,30 C65,50 55,75 50,85 Z" fill="#1e40af"/>
-            <path d="M50,85 C35,75 40,35 50,25 C60,35 65,75 50,85 Z" fill="#3b82f6"/>
-        </svg>
-    </div>
-    <div class="instruccion" id="texto-instruccion">Toca el tulipán, Nani!</div>
+<div id="cover">
+  <div class="cover-label">TIENES UN MENSAJE</div>
+  <button id="openBtn" type="button">Para Nani</button>
+</div>
 
-    <div class="card" id="carta-amor">
-        <div class="mini-tulip">
-            <svg viewBox="0 0 100 150" width="100%" height="100%">
-                <path d="M50,80 Q45,110 50,140" fill="none" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
-                <path d="M50,85 C30,80 30,40 45,30 C35,50 45,75 50,85 Z" fill="#1e40af"/>
-                <path d="M50,85 C70,80 70,40 55,30 C65,50 55,75 50,85 Z" fill="#1e40af"/>
-                <path d="M50,85 C35,75 40,35 50,25 C60,35 65,75 50,85 Z" fill="#3b82f6"/>
-            </svg>
-        </div>
-        <h1>¡Te amo, Nani!</h1>
-        <p>
-            Así como los tulipanes azules son únicos, extraordinarios y difíciles de encontrar, 
-            así de especial eres tú en mi vida. Estoy muy agradecido en tenerte en mi vida y cada instante que comparto a tu lado es unico e increible, te volvere a encontrar, y te pedire pasar el resto de mis dias a mi lado siendo mi compañera de aventuras y de vida. <br><br>
-            Gracias por ser mi felicidad, mi apoyo constante y mi lugar seguro. Te adoro!
-        </p>
-        <div class="heart">💙</div>
-    </div>
+<main id="content">
 
-    <script>
-        const btnTulip = document.getElementById('btn-tulip');
-        const textoInstruccion = document.getElementById('texto-instruccion');
-        const cartaAmor = document.getElementById('carta-amor');
+  <!-- ============ EDITA AQUÍ: datos de la distancia ============ -->
+  <div class="readout" id="readout">
+    <div class="row"><span>ORIGEN</span><span>Barquisimeto, VE</span></div>
+    <div class="row"><span>DESTINO</span><span>Sevilla, ES</span></div>
+    <div class="row"><span>DISTANCIA</span><span><span class="km" id="kmCounter">0</span> km</span></div>
+    <div class="row"><span>DÍAS ASÍ</span><span id="dias">0</span></div>
+  </div>
+  <!-- ============================================================ -->
 
-        function abrirCarta(e) {
-            // Evita doble evento en móviles
-            if (e.type === 'touchstart') e.preventDefault();
+  <h1 class="headline fade-in" style="animation-delay:0.05s">
+    No estoy escribiendo esto para sonar bonito.
+  </h1>
 
-            // 1. Desvanecer y quitar el tulipán de inicio y su texto
-            btnTulip.style.transition = 'all 0.5s ease';
-            btnTulip.style.opacity = '0';
-            btnTulip.style.transform = 'scale(0)';
-            textoInstruccion.style.opacity = '0';
+  <div class="body-text">
+    <p class="fade-in" style="animation-delay:0.15s">
+      Lo escribo porque hay cosas que en una llamada puedo llegar a decir a medias, y quiero decir esta completa.
+    </p>
 
-            setTimeout(() => {
-                btnTulip.style.display = 'none';
-                textoInstruccion.style.display = 'none';
-                
-                // 2. Mostrar la carta de amor con animación poética
-                cartaAmor.classList.add('active');
-                
-                // 3. Lanzar la lluvia de corazones desde el fondo
-                lanzarExplosionCorazones();
-            }, 500);
+    <p class="fade-in" style="animation-delay:0.25s">
+      La distancia no es fácil. No voy a decir que no pesa, o que no hay días en los que las ganas de verte en persona duelen más de lo normal. Si te he pensado mucho. Pero si de algo estoy seguro, es de esto: <strong>no pienso rendirme.</strong>
+    </p>
+
+    <p class="fade-in" style="animation-delay:0.35s">
+      No es una promesa que digo porque toca decirla. Es una decisión. Y las decisiones se sostienen incluso los días en que no hay garantías de nada, he aprendido eso.
+    </p>
+
+    <p class="fade-in" style="animation-delay:0.45s">
+      Y si en algún momento las cosas no salen como esperamos, si el tiempo, la distancia o la vida deciden que esto no funciona, quiero que lo sepas desde ahora: <strong>eso no va a cambiar la forma en que te veo.</strong> No vas a dejar de tener mi apoyo. No vas a dejar de importarme. Eso no depende de un resultado.
+    </p>
+
+    <p class="fade-in" style="animation-delay:0.55s">
+      Esto no es una cuenta regresiva, ni una postal. Es simplemente esto: sigo aquí, voy a seguir aquí, y eso no es negociable.
+    </p>
+  </div>
+
+  <hr class="divider fade-in" style="animation-delay:0.6s">
+
+  <div class="signoff fade-in" style="animation-delay:0.65s">
+    Te quiero, te extraño, te admiro y te aprecio.
+    <!-- EDITA AQUÍ: tu firma o nombre -->
+    <div class="signature">— Daniel</div>
+  </div>
+
+</main>
+
+<script>
+  // ======== EDITA AQUÍ: pon la distancia real en km ========
+  const KM_TARGET = 6980; // distancia aprox. Barquisimeto–Sevilla en línea recta
+  // ======== EDITA AQUÍ: fecha en que empezó la relación a distancia ========
+  const START_DATE = "2026-01-01"; // formato AAAA-MM-DD, pon la fecha real
+
+  const cover = document.getElementById('cover');
+  const content = document.getElementById('content');
+  const openBtn = document.getElementById('openBtn');
+
+  openBtn.addEventListener('click', () => {
+    cover.classList.add('hidden');
+    content.classList.add('visible');
+    runCounters();
+  }, { once: true });
+
+  function runCounters(){
+    // Animación de conteo del kilometraje (un solo momento de movimiento)
+    const kmEl = document.getElementById('kmCounter');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (KM_TARGET > 0) {
+      if (prefersReduced) {
+        kmEl.textContent = KM_TARGET.toLocaleString('es-ES');
+      } else {
+        let start = null;
+        const duration = 900;
+        function step(ts){
+          if(!start) start = ts;
+          const progress = Math.min((ts - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          kmEl.textContent = Math.floor(eased * KM_TARGET).toLocaleString('es-ES');
+          if(progress < 1) requestAnimationFrame(step);
         }
+        requestAnimationFrame(step);
+      }
+    }
 
-        function lanzarExplosionCorazones() {
-            // Crea 15 corazones volando en todas direcciones
-            for (let i = 0; i < 15; i++) {
-                const corazon = document.createElement('div');
-                corazon.classList.add('corazon-flotante');
-                corazon.innerHTML = '💙';
-                
-                // Posición inicial en el centro de la pantalla
-                corazon.style.left = '50%';
-                corazon.style.top = '50%';
-                
-                // Valores aleatorios calculados correctamente (sin espacios)
-                const xAleatoria = (Math.random() - 0.5) * 300;
-                const yAleatoria = (Math.random() - 0.5) * 300 - 100;
-                const rotacionAleatoria = Math.random() * 360;
-                
-                corazon.style.setProperty('--x', `${xAleatoria}px`);
-                corazon.style.setProperty('--y', `${yAleatoria}px`);
-                corazon.style.setProperty('--r', `${rotacionAleatoria}deg`);
-                
-                document.body.appendChild(corazon);
-                
-                setTimeout(() => {
-                    corazon.remove();
-                }, 1200);
-            }
-        }
-
-        // Eventos para PC y Móviles
-        btnTulip.addEventListener('click', abrirCarta);
-        btnTulip.addEventListener('touchstart', abrirCarta);
-    </script>
+    // Cálculo de días desde el inicio de la relación a distancia
+    const diasEl = document.getElementById('dias');
+    try {
+      const start = new Date(START_DATE);
+      const now = new Date();
+      const diff = Math.max(0, Math.floor((now - start) / (1000 * 60 * 60 * 24)));
+      diasEl.textContent = diff.toLocaleString('es-ES');
+    } catch(e) {
+      diasEl.textContent = "—";
+    }
+  }
+</script>
 
 </body>
 </html>
