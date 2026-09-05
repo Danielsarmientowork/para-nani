@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>No pienso rendirme</title>
+<title>Sigo aquí</title>
 <style>
-
-  /* ===========================================================
-     PARA EDITAR: busca los comentarios "EDITA AQUÍ" más abajo
-     para poner nombres, ciudades, km, fecha y tu firma.
-     =========================================================== */
 
   @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -130,12 +125,20 @@
     font-weight: 500;
   }
 
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--mono-dim);
+    margin-bottom: 24px;
+  }
+
   .headline{
     font-size: clamp(26px, 5vw, 34px);
     line-height: 1.28;
     font-weight: 600;
     margin: 0 0 32px;
-    max-width: 20ch;
+    max-width: 22ch;
   }
 
   .body-text p{
@@ -170,6 +173,14 @@
     color: var(--mono-dim);
   }
 
+  .ps{
+    margin-top: 36px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--mono-dim);
+    font-style: italic;
+  }
+
   .fade-in{
     opacity: 0;
     transform: translateY(6px);
@@ -196,55 +207,51 @@
 <main id="content">
 
   <!-- ============ EDITA AQUÍ: datos de la distancia ============ -->
-  <div class="readout" id="readout">
+  <div class="readout">
     <div class="row"><span>ORIGEN</span><span>Barquisimeto, VE</span></div>
     <div class="row"><span>DESTINO</span><span>Sevilla, ES</span></div>
     <div class="row"><span>DISTANCIA</span><span><span class="km" id="kmCounter">0</span> km</span></div>
-    <div class="row"><span>DÍAS ASÍ</span><span id="dias">0</span></div>
   </div>
   <!-- ============================================================ -->
 
   <h1 class="headline fade-in" style="animation-delay:0.05s">
-    No estoy escribiendo esto para sonar bonito.
+    Sigo aquí, aunque esta semana no lo haya parecido.
   </h1>
 
   <div class="body-text">
     <p class="fade-in" style="animation-delay:0.15s">
-      Lo escribo porque hay cosas que en una llamada puedo llegar a decir a medias, y quiero decir esta completa.
+      Hey. Sé que he estado full. Y de verdad, no hay excusas reales por las que no pueda sacar un tiempo para ti.
     </p>
 
     <p class="fade-in" style="animation-delay:0.25s">
-      La distancia no es fácil. No voy a decir que no pesa, o que no hay días en los que las ganas de verte en persona duelen más de lo normal. Si te he pensado mucho. Pero si de algo estoy seguro, es de esto: <strong>no pienso rendirme.</strong>
+      Pero he estado trabajando todo lo que puedo, y todo lo que mi cuerpo me permite, para poco a poco ir terminando de pagar detalles y adelantar el viaje.
     </p>
 
     <p class="fade-in" style="animation-delay:0.35s">
-      No es una promesa que digo porque toca decirla. Es una decisión. Y las decisiones se sostienen incluso los días en que no hay garantías de nada, he aprendido eso.
+      Sé que estuve ausente esta semana. Espero que a ti te haya ido bien, de verdad.
     </p>
 
     <p class="fade-in" style="animation-delay:0.45s">
-      Y si en algún momento las cosas no salen como esperamos, si el tiempo, la distancia o la vida deciden que esto no funciona, quiero que lo sepas desde ahora: <strong>eso no va a cambiar la forma en que te veo.</strong> No vas a dejar de tener mi apoyo. No vas a dejar de importarme. Eso no depende de un resultado.
-    </p>
-
-    <p class="fade-in" style="animation-delay:0.55s">
-      Esto no es una cuenta regresiva, ni una postal. Es simplemente esto: sigo aquí, voy a seguir aquí, y eso no es negociable.
+      Te he notado un poco distante al escribir, y supongo que lo entiendo. No te lo voy a reclamar. <strong>Solo quiero que sepas que sigo aquí</strong>, pensando en ti aunque esta semana no lo haya demostrado como debía.
     </p>
   </div>
 
-  <hr class="divider fade-in" style="animation-delay:0.6s">
+  <hr class="divider fade-in" style="animation-delay:0.5s">
 
-  <div class="signoff fade-in" style="animation-delay:0.65s">
-    Te quiero, te extraño, te admiro y te aprecio.
-    <!-- EDITA AQUÍ: tu firma o nombre -->
+  <div class="signoff fade-in" style="animation-delay:0.55s">
+    Te quiero.
     <div class="signature">— Daniel</div>
   </div>
+
+  <p class="ps fade-in" style="animation-delay:0.62s">
+    P.D. cada vez odio más la fokin Yacambú, cuando te llame te cuento.
+  </p>
 
 </main>
 
 <script>
   // ======== EDITA AQUÍ: pon la distancia real en km ========
   const KM_TARGET = 6980; // distancia aprox. Barquisimeto–Sevilla en línea recta
-  // ======== EDITA AQUÍ: fecha en que empezó la relación a distancia ========
-  const START_DATE = "2026-01-01"; // formato AAAA-MM-DD, pon la fecha real
 
   const cover = document.getElementById('cover');
   const content = document.getElementById('content');
@@ -253,11 +260,10 @@
   openBtn.addEventListener('click', () => {
     cover.classList.add('hidden');
     content.classList.add('visible');
-    runCounters();
+    runCounter();
   }, { once: true });
 
-  function runCounters(){
-    // Animación de conteo del kilometraje (un solo momento de movimiento)
+  function runCounter(){
     const kmEl = document.getElementById('kmCounter');
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -276,17 +282,6 @@
         }
         requestAnimationFrame(step);
       }
-    }
-
-    // Cálculo de días desde el inicio de la relación a distancia
-    const diasEl = document.getElementById('dias');
-    try {
-      const start = new Date(START_DATE);
-      const now = new Date();
-      const diff = Math.max(0, Math.floor((now - start) / (1000 * 60 * 60 * 24)));
-      diasEl.textContent = diff.toLocaleString('es-ES');
-    } catch(e) {
-      diasEl.textContent = "—";
     }
   }
 </script>
