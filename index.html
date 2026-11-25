@@ -1,290 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sigo aquí</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brote — Cuaderno que se vuelve planta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-
-  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
-  :root{
-    --paper: #F2EFE9;
-    --ink: #221F1A;
-    --ink-soft: #4A453D;
-    --accent: #9C4A2E;
-    --line: #D8D2C4;
-    --mono-dim: #6B7268;
-  }
-
-  *{ box-sizing: border-box; }
-
-  html, body{
-    margin:0;
-    padding:0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Source Serif 4', Georgia, serif;
-  }
-
-  body{
-    min-height: 100vh;
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    padding: 64px 24px 96px;
-  }
-
-  main{
-    width: 100%;
-    max-width: 560px;
-  }
-
-  #cover{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    text-align: center;
-    transition: opacity 0.5s ease;
-  }
-
-  #cover .cover-label{
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--mono-dim);
-  }
-
-  #openBtn{
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--ink);
-    background: transparent;
-    border: 1.5px solid var(--ink);
-    border-radius: 3px;
-    padding: 14px 34px;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
-  }
-
-  #openBtn:hover{
-    background: var(--ink);
-    color: var(--paper);
-  }
-
-  #openBtn:active{
-    transform: scale(0.98);
-  }
-
-  #openBtn:focus-visible{
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  #cover.hidden{
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-  }
-
-  #content{
-    display:none;
-  }
-
-  #content.visible{
-    display:block;
-  }
-
-  .readout{
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    color: var(--mono-dim);
-    letter-spacing: 0.02em;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 16px 18px;
-    margin-bottom: 48px;
-    cursor: default;
-  }
-
-  .readout .row{
-    display:flex;
-    justify-content: space-between;
-    padding: 3px 0;
-  }
-
-  .readout .row + .row{
-    border-top: 1px dashed var(--line);
-  }
-
-  .readout .km{
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .eyebrow{
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--mono-dim);
-    margin-bottom: 24px;
-  }
-
-  .headline{
-    font-size: clamp(26px, 5vw, 34px);
-    line-height: 1.28;
-    font-weight: 600;
-    margin: 0 0 32px;
-    max-width: 22ch;
-  }
-
-  .body-text p{
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin: 0 0 22px;
-    max-width: 58ch;
-  }
-
-  .body-text strong{
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .divider{
-    border: none;
-    border-top: 1px solid var(--line);
-    margin: 40px 0;
-  }
-
-  .signoff{
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--ink);
-  }
-
-  .signature{
-    margin-top: 28px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--mono-dim);
-  }
-
-  .ps{
-    margin-top: 36px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--mono-dim);
-    font-style: italic;
-  }
-
-  .fade-in{
-    opacity: 0;
-    transform: translateY(6px);
-    animation: rise 0.7s ease forwards;
-  }
-
-  @keyframes rise{
-    to{ opacity:1; transform:none; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .fade-in{ animation:none; opacity:1; transform:none; }
-  }
-
+body{margin:0}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 28px;border-radius:999px;font:600 16px Inter,sans-serif;text-decoration:none}
+.btn:hover{opacity:.88}
 </style>
 </head>
 <body>
+<div style="background:#EEF1E4;color:#1F2A1D;font-family:Inter,sans-serif;max-width:1440px;margin:0 auto">
 
-<div id="cover">
-  <div class="cover-label">TIENES UN MENSAJE</div>
-  <button id="openBtn" type="button">Para Nani</button>
+<header style="display:flex;justify-content:space-between;align-items:center;padding:28px 6vw;flex-wrap:wrap;gap:16px">
+<div style="font:600 28px Fraunces,serif">Brote</div>
+<nav style="display:flex;gap:28px;font-size:15px;flex-wrap:wrap">
+<a href="#ciclo">El ciclo</a><a href="#materiales">Materiales</a>
+</nav>
+</header>
+
+<section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center;padding:48px 6vw 96px">
+<div>
+<p style="margin:0 0 16px;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#2F5D3A;font-weight:600">Cuaderno plantable</p>
+<h1 style="margin:0 0 24px;font:400 clamp(44px,6vw,80px)/1.02 Fraunces,serif">Escribe hoy. Siembra mañana.</h1>
+<p style="margin:0 0 36px;font-size:19px;line-height:1.55;max-width:480px;color:#44503F">Brote es un cuaderno de papel reciclado con semillas en la tapa. Cuando termina su vida útil, lo entierras y se convierte en planta.</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap">
+<a class="btn" href="#ciclo" style="background:#2F5D3A;color:#fff">Ver el ciclo</a>
+<a class="btn" href="#materiales" style="border:1.5px solid #1F2A1D">Ver materiales</a>
 </div>
+</div>
+<div style="position:relative;height:460px;background:#DDE5CB;border-radius:32px;overflow:hidden" aria-hidden="true">
+<div style="position:absolute;right:56px;top:48px;width:96px;height:96px;border-radius:50%;background:#F3DE9A"></div>
+<div style="position:absolute;left:-10%;bottom:-120px;width:120%;height:220px;border-radius:50%;background:#8A5A3B"></div>
+<div style="position:absolute;left:50%;bottom:96px;width:8px;height:190px;margin-left:-4px;background:#3F7A3F;border-radius:4px"></div>
+<div style="position:absolute;left:50%;bottom:200px;width:110px;height:55px;background:#5F9448;border-radius:0 100% 0 100%;transform:rotate(-35deg);transform-origin:left bottom"></div>
+<div style="position:absolute;left:50%;bottom:262px;width:110px;height:55px;background:#8DB36B;border-radius:100% 0 100% 0;transform:rotate(35deg);transform-origin:right bottom;margin-left:-110px"></div>
+</div>
+</section>
 
-<main id="content">
+<section id="ciclo" style="padding:96px 6vw;background:#1F2A1D;color:#EEF1E4">
+<h2 style="margin:0 0 56px;font:400 clamp(32px,4vw,52px)/1.1 Fraunces,serif;max-width:640px">Un objeto que no termina en la basura.</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px;color:#EEF1E4">
+<div style="border-top:1.5px solid #8DB36B;padding-top:24px"><div style="font:400 44px Fraunces,serif;color:#8DB36B">01</div><h3 style="margin:8px 0 12px;font:600 24px Fraunces,serif">Escribe</h3><p style="margin:0;line-height:1.6;color:#C9D3BA">Úsalo como cualquier cuaderno: notas, ideas, listas, dibujos.</p></div>
+<div style="border-top:1.5px solid #8DB36B;padding-top:24px"><div style="font:400 44px Fraunces,serif;color:#8DB36B">02</div><h3 style="margin:8px 0 12px;font:600 24px Fraunces,serif">Termina</h3><p style="margin:0;line-height:1.6;color:#C9D3BA">Cuando se llena la última hoja, retira la tapa y sepárala del resto.</p></div>
+<div style="border-top:1.5px solid #8DB36B;padding-top:24px"><div style="font:400 44px Fraunces,serif;color:#8DB36B">03</div><h3 style="margin:8px 0 12px;font:600 24px Fraunces,serif">Siembra</h3><p style="margin:0;line-height:1.6;color:#C9D3BA">Entierra la tapa en una maceta o en el jardín, riega, y espera el brote.</p></div>
+</div>
+</section>
 
-  <!-- ============ EDITA AQUÍ: datos de la distancia ============ -->
-  <div class="readout">
-    <div class="row"><span>ORIGEN</span><span>Barquisimeto, VE</span></div>
-    <div class="row"><span>DESTINO</span><span>Sevilla, ES</span></div>
-    <div class="row"><span>DISTANCIA</span><span><span class="km" id="kmCounter">0</span> km</span></div>
-  </div>
-  <!-- ============================================================ -->
+<section id="materiales" style="padding:96px 6vw">
+<h2 style="margin:0 0 16px;font:400 clamp(32px,4vw,52px)/1.1 Fraunces,serif">Hecho de lo que vuelve a la tierra.</h2>
+<p style="margin:0 0 48px;font-size:18px;color:#44503F;max-width:560px;line-height:1.55">Cada parte fue elegida para que el cuaderno no deje residuos.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px">
+<div style="background:#fff;border-radius:24px;padding:36px 32px"><h3 style="margin:0 0 10px;font:600 24px Fraunces,serif">Papel reciclado</h3><p style="margin:0;line-height:1.55;color:#44503F">Hojas hechas con papel recuperado, sin blanqueadores agresivos.</p></div>
+<div style="background:#fff;border-radius:24px;padding:36px 32px"><h3 style="margin:0 0 10px;font:600 24px Fraunces,serif">Tapa con semillas</h3><p style="margin:0;line-height:1.55;color:#44503F">Una tapa de fibra que lleva semillas de [ESPECIE DE PLANTA] en su interior.</p></div>
+<div style="background:#fff;border-radius:24px;padding:36px 32px"><h3 style="margin:0 0 10px;font:600 24px Fraunces,serif">Encuadernación simple</h3><p style="margin:0;line-height:1.55;color:#44503F">Cosido a mano con hilo natural, sin plástico ni pegamentos tóxicos.</p></div>
+</div>
+</section>
 
-  <h1 class="headline fade-in" style="animation-delay:0.05s">
-    Sigo aquí, aunque esta semana no lo haya parecido.
-  </h1>
+<section style="margin:0 6vw 96px;background:#2F5D3A;color:#fff;border-radius:32px;padding:80px 6vw;text-align:center">
+<h2 style="margin:0 0 16px;font:400 clamp(32px,4vw,56px)/1.1 Fraunces,serif">Empieza por una idea. Termina con una planta.</h2>
+<p style="margin:0;font-size:18px">Un cuaderno sencillo con una idea grande: devolverle algo a la tierra.</p>
+</section>
 
-  <div class="body-text">
-    <p class="fade-in" style="animation-delay:0.15s">
-      Hey. Sé que he estado full. Y de verdad, no hay excusas reales por las que no pueda sacar un tiempo para ti.
-    </p>
-
-    <p class="fade-in" style="animation-delay:0.25s">
-      Pero he estado trabajando todo lo que puedo, y todo lo que mi cuerpo me permite, para poco a poco ir terminando de pagar detalles y adelantar el viaje.
-    </p>
-
-    <p class="fade-in" style="animation-delay:0.35s">
-      Sé que estuve ausente esta semana. Espero que a ti te haya ido bien, de verdad.
-    </p>
-
-    <p class="fade-in" style="animation-delay:0.45s">
-      Te he notado un poco distante al escribir, y supongo que lo entiendo. No te lo voy a reclamar. <strong>Solo quiero que sepas que sigo aquí</strong>, pensando en ti aunque esta semana no lo haya demostrado como debía.
-    </p>
-  </div>
-
-  <hr class="divider fade-in" style="animation-delay:0.5s">
-
-  <div class="signoff fade-in" style="animation-delay:0.55s">
-    Te quiero.
-    <div class="signature">— Daniel</div>
-  </div>
-
-  <p class="ps fade-in" style="animation-delay:0.62s">
-    P.D. cada vez odio más la fokin Yacambú, cuando te llame te cuento.
-  </p>
-
-</main>
-
-<script>
-  // ======== EDITA AQUÍ: pon la distancia real en km ========
-  const KM_TARGET = 6980; // distancia aprox. Barquisimeto–Sevilla en línea recta
-
-  const cover = document.getElementById('cover');
-  const content = document.getElementById('content');
-  const openBtn = document.getElementById('openBtn');
-
-  openBtn.addEventListener('click', () => {
-    cover.classList.add('hidden');
-    content.classList.add('visible');
-    runCounter();
-  }, { once: true });
-
-  function runCounter(){
-    const kmEl = document.getElementById('kmCounter');
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (KM_TARGET > 0) {
-      if (prefersReduced) {
-        kmEl.textContent = KM_TARGET.toLocaleString('es-ES');
-      } else {
-        let start = null;
-        const duration = 900;
-        function step(ts){
-          if(!start) start = ts;
-          const progress = Math.min((ts - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          kmEl.textContent = Math.floor(eased * KM_TARGET).toLocaleString('es-ES');
-          if(progress < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
-    }
-  }
-</script>
-
+<footer style="padding:0 6vw 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;color:#5A6654">
+<span>© Brote</span><span>Contacto · Cuidado de la semilla</span>
+</footer>
+</div>
 </body>
 </html>
